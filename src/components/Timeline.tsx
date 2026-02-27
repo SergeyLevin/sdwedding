@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'motion/react';
 import { WEDDING_CONFIG } from '../config/wedding';
 
@@ -36,3 +36,4 @@ export const Timeline: React.FC = () => {
     </div>
   );
 };
+

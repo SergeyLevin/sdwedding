@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackText?: string;
@@ -26,3 +26,4 @@ export const SafeImage: React.FC<SafeImageProps> = ({ src, alt, className, fallb
     />
   );
 };
+

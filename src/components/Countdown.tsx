@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 
 interface CountdownProps {
@@ -63,7 +63,7 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
           <div className="text-4xl md:text-7xl font-serif mb-2 tabular-nums text-wedding-graphite font-light">
             {String(item.value).padStart(2, '0')}
           </div>
-          <div className="text-[10px] md:text-[11px] uppercase tracking-[0.4em] text-wedding-muted font-medium">
+          <div className="text-[10px] md:text-[11px] uppercase tracking-[0.35em] text-wedding-muted font-medium font-sans">
             {item.label}
           </div>
         </motion.div>
@@ -71,3 +71,6 @@ export const Countdown: React.FC<CountdownProps> = ({ targetDate }) => {
     </div>
   );
 };
+
+
+

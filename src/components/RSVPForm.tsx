@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const RSVPForm: React.FC = () => {
@@ -8,28 +8,11 @@ export const RSVPForm: React.FC = () => {
     lastName: '',
     isMultiple: false,
     multipleNames: '',
-    drinks: [] as string[],
     honeypot: '',
   });
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const drinkOptions = [
-    'Вино красное',
-    'Вино белое',
-    'Виски',
-    'Коньяк',
-    'Водка',
-    'Что-нибудь безалкогольное',
-  ];
-
-  const handleDrinkChange = (drink: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      drinks: prev.drinks.includes(drink) ? prev.drinks.filter((d) => d !== drink) : [...prev.drinks, drink],
-    }));
-  };
 
   const resetForm = () => {
     setFormData({
@@ -38,7 +21,6 @@ export const RSVPForm: React.FC = () => {
       lastName: '',
       isMultiple: false,
       multipleNames: '',
-      drinks: [],
       honeypot: '',
     });
   };
@@ -71,9 +53,6 @@ export const RSVPForm: React.FC = () => {
         setErrorMessage('Пожалуйста, введите имена гостей');
         return;
       }
-    } else {
-      // Если не приходит — всё равно желательно имя, но не заставляем
-      // (оставим мягко: если одиночный режим и пусто — ок)
     }
 
     setStatus('submitting');
@@ -87,14 +66,14 @@ export const RSVPForm: React.FC = () => {
       return;
     }
 
-    // Map drinks to 0/1 for the spreadsheet
+    // Drinks removed from UI. Keep payload schema stable (all zeros).
     const drinksMap = {
-      wine_red: formData.drinks.includes('Вино красное') ? 1 : 0,
-      wine_white: formData.drinks.includes('Вино белое') ? 1 : 0,
-      whiskey: formData.drinks.includes('Виски') ? 1 : 0,
-      cognac: formData.drinks.includes('Коньяк') ? 1 : 0,
-      vodka: formData.drinks.includes('Водка') ? 1 : 0,
-      soft: formData.drinks.includes('Что-нибудь безалкогольное') ? 1 : 0,
+      wine_red: 0,
+      wine_white: 0,
+      whiskey: 0,
+      cognac: 0,
+      vodka: 0,
+      soft: 0,
     };
 
     const guestsList = formData.isMultiple
@@ -241,26 +220,6 @@ export const RSVPForm: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-
-      {/* Question 3: Drinks */}
-      <div className="space-y-4">
-        <label className="text-[10px] uppercase tracking-[0.2em] text-wedding-muted block">
-          Предпочтения по напиткам
-        </label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {drinkOptions.map((drink) => (
-            <label key={drink} className="flex items-center gap-3 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={formData.drinks.includes(drink)}
-                onChange={() => handleDrinkChange(drink)}
-                className="checkbox-custom"
-              />
-              <span className="text-sm group-hover:text-wedding-muted transition-colors">{drink}</span>
-            </label>
-          ))}
-        </div>
       </div>
 
       {/* Honeypot */}

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿﻿import React from 'react';
 import { motion } from 'motion/react';
 import { Phone, MessageCircle, ChevronDown } from 'lucide-react';
 import { WEDDING_CONFIG } from './config/wedding';
@@ -16,7 +16,14 @@ export default function App() {
     transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
   };
 
-  return (
+  
+  const DRESS_TEXTURES: Record<string, string> = {
+    "Бежевый": `${import.meta.env.BASE_URL}images/beige.webp`,
+    "Золотистый": `${import.meta.env.BASE_URL}images/gold.webp`,
+    "Розовый": `${import.meta.env.BASE_URL}images/pink.webp`,
+    "Коричневый": `${import.meta.env.BASE_URL}images/brown.webp`,
+  };
+return (
     <div className="min-h-screen selection:bg-wedding-champagne selection:text-white">
       <Navigation />
 
@@ -25,7 +32,7 @@ export default function App() {
         <div className="absolute inset-0 z-0">
           <SafeImage 
             src={WEDDING_CONFIG.images.hero} 
-            alt="Дарья и Сергей" 
+            alt="Сергей и Дарья" 
             className="w-full h-full object-cover"
             loading="eager"
           />
@@ -76,9 +83,9 @@ export default function App() {
             transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-5xl md:text-8xl font-serif mb-12 leading-tight drop-shadow-sm"
           >
-            {WEDDING_CONFIG.couple.bride} <br className="md:hidden" />
+            {WEDDING_CONFIG.couple.groom} <br className="md:hidden" />
             <span className="italic text-3xl md:text-6xl mx-4 font-normal opacity-80">&</span> <br className="md:hidden" />
-            {WEDDING_CONFIG.couple.groom}
+            {WEDDING_CONFIG.couple.bride}
           </motion.h1>
 
           <motion.div 
@@ -94,35 +101,42 @@ export default function App() {
             
             <div className="pt-4 space-y-4">
               <div className="space-y-2">
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] font-medium">
+                <p className="text-[11px] md:text-[12px] uppercase tracking-[0.6em] font-medium opacity-90">
                   {WEDDING_CONFIG.date.display}
                 </p>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] opacity-70">
+                <p className="text-[11px] md:text-[12px] uppercase tracking-[0.6em] font-medium opacity-90">
                   Начало в {WEDDING_CONFIG.date.time}
                 </p>
+                <p className="text-[11px] md:text-[12px] uppercase tracking-[0.6em] font-medium opacity-80 text-wedding-champagne">
+                  {WEDDING_CONFIG.location.city}
+                </p>
               </div>
-              <p className="text-[11px] uppercase tracking-[0.3em] font-medium text-wedding-champagne">
-                {WEDDING_CONFIG.location.city}
-              </p>
             </div>
           </motion.div>
-        </div>
 
-        <motion.div 
-          animate={{ y: [0, 8, 0], opacity: [0.4, 0.7, 0.4] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/40"
-        >
-          <ChevronDown size={20} strokeWidth={1} />
-        </motion.div>
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6, duration: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2 text-white/70"
+            >
+              <ChevronDown size={20} />
+            </motion.div>
+          </motion.div>
+        </div>
       </section>
 
       {/* 2. PROGRAM SECTION */}
       <section id="program" className="section-wedding bg-wedding-ivory">
         <div className="container-wedding">
-          <motion.div {...revealProps} className="text-center mb-24">
+          <motion.div {...revealProps} className="text-center mb-16 md:mb-24">
             <h2 className="text-3xl md:text-5xl font-serif mb-6">Программа дня</h2>
-            <div className="section-divider" />
           </motion.div>
           <Timeline />
         </div>
@@ -131,61 +145,49 @@ export default function App() {
       {/* 3. TIMER SECTION */}
       <section id="timer" className="section-wedding bg-wedding-secondary">
         <div className="container-wedding text-center">
-          <motion.h2 {...revealProps} className="text-[10px] uppercase tracking-[0.5em] text-wedding-muted mb-16 font-medium">
-            До свадьбы осталось
-          </motion.h2>
-          <Countdown targetDate={WEDDING_CONFIG.date.iso} />
+          <motion.div {...revealProps} className="mb-16 md:mb-24">
+            <motion.h2 className="text-[10px] uppercase tracking-[0.5em] text-wedding-muted mb-16 font-medium">
+              До свадьбы осталось
+            </motion.h2>
+            <Countdown targetDate={WEDDING_CONFIG.date.iso} />
+          </motion.div>
         </div>
       </section>
 
       {/* 4. LOCATION SECTION */}
       <section id="location" className="section-wedding bg-wedding-ivory">
         <div className="container-wedding">
-          {/* Centered Title */}
           <motion.div {...revealProps} className="text-center mb-16 md:mb-24">
             <h2 className="text-3xl md:text-5xl font-serif mb-6">Локация</h2>
-            <div className="section-divider" />
           </motion.div>
 
           {/* Two-column Grid */}
-          <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-            
-            {/* Left: Text Content */}
-            <motion.div 
-              {...revealProps}
-              className="space-y-8 text-center md:text-left order-1"
-            >
-              <div className="space-y-6">
-                <p className="text-lg md:text-xl text-wedding-muted leading-relaxed">
-                  Наша свадьба пройдет в <br />
-                  <span className="text-wedding-graphite font-medium">{WEDDING_CONFIG.location.name}</span>
-                </p>
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-wedding-muted leading-loose max-w-md mx-auto md:mx-0">
-                  {WEDDING_CONFIG.location.fullAddress}
-                </p>
-              </div>
-              
-              <div className="pt-4">
-                <a 
-                  href={WEDDING_CONFIG.location.twoGisUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="btn-outline"
-                >
-                  Посмотреть в 2GIS
-                </a>
-              </div>
+          <div className="max-w-[1100px] mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <motion.div {...revealProps} className="space-y-6">
+              <p className="text-wedding-muted leading-relaxed text-base">
+                Наша свадьба пройдёт в <br />
+                <span className="text-wedding-graphite font-medium">{WEDDING_CONFIG.location.name}</span>
+              </p>
+              <p className="text-[11px] uppercase tracking-[0.3em] text-wedding-muted leading-relaxed">
+                {WEDDING_CONFIG.location.address}, <br />
+                {WEDDING_CONFIG.location.city}
+              </p>
+
+              <a
+                href={WEDDING_CONFIG.location.twoGisUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-wedding-graphite text-white text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-black transition-all duration-300 shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+              >
+                Посмотреть в 2GIS
+              </a>
             </motion.div>
-            
-            {/* Right: Image */}
-            <motion.div 
-              {...revealProps}
-              className="aspect-[4/3] overflow-hidden rounded-[20px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] border border-wedding-divider/20 order-2"
-            >
-              <SafeImage 
-                src="/images/banket.webp" 
-                alt="Банкетный зал Грильяж" 
-                className="w-full h-full object-cover"
+
+            <motion.div {...revealProps} className="overflow-hidden shadow-[0_10px_28px_rgba(0,0,0,0.06)]">
+              <SafeImage
+                src={WEDDING_CONFIG.images.banket}
+                alt={WEDDING_CONFIG.location.name}
+                className="w-full h-full object-cover rounded-[24px]"
                 loading="lazy"
               />
             </motion.div>
@@ -197,8 +199,7 @@ export default function App() {
       <section id="details" className="section-wedding bg-wedding-secondary">
         <div className="container-wedding text-center">
           <div className="max-w-prose-wedding space-y-10">
-            <motion.h2 {...revealProps} className="text-3xl font-serif italic">Детали</motion.h2>
-            <div className="section-divider" />
+            <motion.h2 {...revealProps} className="text-3xl md:text-5xl font-serif mb-6">Детали</motion.h2>
             <motion.div {...revealProps} className="space-y-8 text-wedding-muted leading-loose text-sm md:text-base">
               <p>
                 Ваше присутствие на нашем празднике - самый главный подарок для нас. 
@@ -215,34 +216,33 @@ export default function App() {
       {/* 6. DRESS CODE SECTION */}
       <section id="dress-code" className="section-wedding bg-wedding-ivory">
         <div className="container-wedding text-center">
-          <motion.h2 {...revealProps} className="text-3xl md:text-5xl font-serif mb-10">Дресс-код</motion.h2>
-          <motion.div {...revealProps} className="max-w-prose-wedding mb-16">
-            <p className="text-wedding-muted leading-relaxed text-sm md:text-base">
-              {WEDDING_CONFIG.dressCode.description}
-            </p>
-          </motion.div>
+          <motion.h2 {...revealProps} className="text-3xl md:text-5xl font-serif mb-6">Дресс-код</motion.h2>
 
-          {/* Color Palette */}
-          <motion.div 
-            {...revealProps}
-            className="grid grid-cols-3 md:flex md:justify-center gap-8 md:gap-12 mb-20"
-          >
-            {WEDDING_CONFIG.dressCode.colors.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-3">
+          <motion.p {...revealProps} className="max-w-prose-wedding text-wedding-muted leading-relaxed mb-20 text-sm md:text-base">
+            {WEDDING_CONFIG.dressCode.description}
+          </motion.p>
+
+          {/* Colors */}
+          <motion.div {...revealProps} className="grid grid-cols-2 sm:grid-cols-4 gap-8 md:gap-10 justify-items-center mb-20">
+            {WEDDING_CONFIG.dressCode.colors.map((color) => (
+              <div key={color.name} className="text-center space-y-4">
                 <div 
-                  className="w-14 h-14 rounded-full border border-wedding-divider/20 shadow-sm relative overflow-hidden group"
-                  style={{ backgroundColor: item.hex }}
-                >
-                  {/* Inner Highlight */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-black/5 to-white/10 pointer-events-none" />
-                </div>
-                <span className="text-[10px] uppercase tracking-widest text-wedding-muted font-medium">
-                  {item.name}
-                </span>
+                  className="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden shadow-[0_12px_35px_rgba(0,0,0,0.10)]"
+                  style={{
+  backgroundColor: color.hex,
+  backgroundImage: DRESS_TEXTURES[color.name] ? `url(${DRESS_TEXTURES[color.name]})` : undefined,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+}}
+                />
+                <p className="text-[11px] uppercase tracking-[0.22em] text-wedding-muted font-medium">
+                  {color.name}
+                </p>
               </div>
             ))}
           </motion.div>
 
+          {/* Text */}
           <motion.div {...revealProps} className="max-w-prose-wedding space-y-10 text-wedding-muted leading-loose text-sm md:text-base">
             <p>
               <span className="text-wedding-graphite font-medium">Дамы</span> - платья или костюмы в светлых и тёплых оттенках.
@@ -254,37 +254,48 @@ export default function App() {
         </div>
       </section>
 
-      {/* 7. CONTACTS (HOST ONLY) */}
+      {/* 7. CONTACTS / HOST */}
       <section id="contacts" className="section-wedding bg-wedding-secondary">
         <div className="container-wedding">
-          <div className="max-w-xl mx-auto">
-            <motion.div 
-              {...revealProps}
-              className="card-premium text-center space-y-8"
-            >
-              <div className="w-32 h-32 rounded-full bg-wedding-ivory mx-auto overflow-hidden border border-wedding-divider/30 p-1">
-                <div className="w-full h-full rounded-full overflow-hidden">
-                  <SafeImage 
-                    src={WEDDING_CONFIG.images.host} 
-                    alt="Ведущий Артур" 
-                    className="w-full h-full object-cover" 
+          <div className="max-w-[720px] mx-auto">
+            <motion.div {...revealProps} className="card-premium text-center">
+              <div className="flex flex-col items-center">
+                <div className="w-32 h-32 md:w-36 md:h-36 rounded-full overflow-hidden border border-white/40 shadow-[0_12px_35px_rgba(0,0,0,0.12)] mb-6">
+                  <SafeImage
+                    src={WEDDING_CONFIG.images.host}
+                    alt="Ведущий"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-2xl font-serif mb-2">Ведущий {WEDDING_CONFIG.contacts.host.name}</h3>
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-wedding-muted">Вашего настроения</p>
-                </div>
-                <p className="text-xs text-wedding-muted leading-relaxed px-4 italic">
-                  "Если готовите сюрприз или есть вопросы - напишите ведущему."
+
+                <h3 className="text-3xl md:text-4xl font-serif mb-2 uppercase tracking-[0.15em]">
+  {WEDDING_CONFIG.contacts.host.name}
+</h3>
+<p className="text-[11px] uppercase tracking-[0.25em] text-zinc-600 mb-8 font-medium">
+  ведущий нашего вечера
+</p>
+
+                <p className="text-sm text-wedding-muted italic leading-relaxed max-w-md mx-auto mb-10">
+                  Если готовите сюрприз или есть вопросы — напишите ведущему.
                 </p>
-                <div className="flex justify-center gap-6">
-                  <a href={`tel:${WEDDING_CONFIG.contacts.host.phone}`} className="w-12 h-12 rounded-full border border-wedding-divider/50 flex items-center justify-center hover:bg-wedding-champagne hover:text-white hover:border-wedding-champagne transition-all duration-500">
-                    <Phone size={18} strokeWidth={1.5} />
+
+                <div className="flex gap-4 justify-center">
+                  <a
+                    href={`tel:${WEDDING_CONFIG.contacts.host.phone.replace(/\s/g, '')}`}
+                    className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm border border-white/40 flex items-center justify-center hover:bg-white/50 transition-all duration-300"
+                    aria-label="Позвонить"
+                  >
+                    <Phone size={18} className="text-wedding-graphite" />
                   </a>
-                  <a href={WEDDING_CONFIG.contacts.host.vk} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-wedding-divider/50 flex items-center justify-center hover:bg-wedding-champagne hover:text-white hover:border-wedding-champagne transition-all duration-500">
-                    <span className="text-[10px] font-bold tracking-tighter">VK</span>
+                  <a
+                    href={WEDDING_CONFIG.contacts.host.vk}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm border border-white/40 flex items-center justify-center hover:bg-white/50 transition-all duration-300"
+                    aria-label="VK"
+                  >
+                    <MessageCircle size={18} className="text-wedding-graphite" />
                   </a>
                 </div>
               </div>
@@ -294,19 +305,21 @@ export default function App() {
       </section>
 
       {/* 8. RSVP SECTION */}
+            {/* 8. RSVP SECTION */}
       <section id="rsvp" className="section-wedding bg-wedding-ivory">
         <div className="container-wedding">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Image for mobile and desktop */}
-            <motion.div 
+            <motion.div
               {...revealProps}
               className="relative order-1 lg:order-2"
             >
               <div className="aspect-[3/4] max-w-[400px] mx-auto overflow-hidden rounded-[16px] shadow-sm border border-wedding-divider/20 p-4 bg-white/30">
-                <SafeImage 
-                  src={WEDDING_CONFIG.images.rsvp} 
-                  alt="Дарья и Сергей" 
+                <SafeImage
+                  src={WEDDING_CONFIG.images.rsvp}
+                  alt="Сергей и Дарья"
                   className="w-full h-full object-cover rounded-[12px]"
+                  loading="lazy"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 w-32 h-32 border border-wedding-champagne/10 -z-10 rounded-[16px] hidden lg:block" />
@@ -318,7 +331,8 @@ export default function App() {
                 <div className="max-w-prose-wedding mx-auto lg:mx-0">
                   <p className="text-wedding-muted leading-relaxed text-sm md:text-base">
                     Ваши ответы помогут нам в организации свадьбы. <br />
-                    Будем ждать ответ до <span className="text-wedding-graphite font-medium">{WEDDING_CONFIG.date.rsvpDeadline}</span>
+                    Будем ждать ответ до{' '}
+                    <span className="text-wedding-graphite font-medium">{WEDDING_CONFIG.date.rsvpDeadline}</span>
                   </p>
                 </div>
               </div>
@@ -329,20 +343,31 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="section-wedding bg-wedding-secondary text-center">
-        <motion.h2 
-          initial={{ opacity: 0, letterSpacing: '0.2em' }}
-          whileInView={{ opacity: 1, letterSpacing: '0.6em' }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
-          className="text-xl md:text-3xl font-serif uppercase tracking-[0.6em] text-wedding-graphite"
-        >
-          МЫ БУДЕМ СЧАСТЛИВЫ ВИДЕТЬ ВАС!
-        </motion.h2>
-        <div className="mt-16 text-[10px] uppercase tracking-[0.4em] text-wedding-muted opacity-60">
-          &copy; 2026 {WEDDING_CONFIG.couple.names}
+      <footer className="section-wedding bg-wedding-secondary">
+        <div className="container-wedding text-center">
+          <motion.h2 {...revealProps} className="text-xl md:text-3xl font-serif uppercase tracking-[0.6em] text-wedding-graphite">
+            МЫ БУДЕМ СЧАСТЛИВЫ ВИДЕТЬ ВАС!
+          </motion.h2>
+          <p className="mt-8 text-[10px] uppercase tracking-[0.4em] text-wedding-muted">
+            © 2026 Сергей и Дарья
+          </p>
         </div>
       </footer>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
