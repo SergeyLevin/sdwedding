@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿﻿import React from 'react';
 import { motion } from 'motion/react';
 import { Phone, MessageCircle, ChevronDown } from 'lucide-react';
 import { WEDDING_CONFIG } from './config/wedding';
@@ -34,7 +34,7 @@ export default function App() {
           <img
             src={WEDDING_CONFIG.images.hero}
             alt="Сергей и Дарья"
-            className="absolute inset-0 h-full w-full object-cover object-center scale-[0.92] md:scale-100"
+            className="absolute inset-0 h-full w-full object-cover object-center md:object-cover"
           />
         </picture>
 
