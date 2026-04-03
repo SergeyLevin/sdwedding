@@ -34,7 +34,7 @@ export default function App() {
           <img
             src={WEDDING_CONFIG.images.hero}
             alt="Сергей и Дарья"
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-[0.92] md:scale-100"
           />
         </picture>
 
