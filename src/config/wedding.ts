@@ -1,4 +1,4 @@
-﻿/**
+﻿﻿/**
  * Wedding Configuration
  * All wedding details are centralized here for easy modification.
  */
@@ -61,6 +61,7 @@ export const WEDDING_CONFIG = {
   },
   images: {
     hero: `${import.meta.env.BASE_URL}images/herosd.webp`,
+    heroMobile: `${import.meta.env.BASE_URL}images/herosdmobile.webp`,
     banket: `${import.meta.env.BASE_URL}images/banket.webp`,
     host: `${import.meta.env.BASE_URL}images/artur.webp`,
     rsvp: `${import.meta.env.BASE_URL}images/para.webp`,
