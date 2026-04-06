@@ -12,7 +12,7 @@ export const Navigation: React.FC = () => {
       setScrolled(window.scrollY > 50);
 
       // Simple scroll spy
-      const sections = ['program', 'timer', 'location', 'details', 'dress-code', 'contacts', 'rsvp'];
+      const sections = ['program', 'timer', 'location', 'dress-code', 'contacts', 'rsvp'];
       const current = sections.find((section) => {
         const element = document.getElementById(section);
         if (element) {
@@ -31,7 +31,7 @@ export const Navigation: React.FC = () => {
     { label: 'Программа', href: '#program' },
     { label: 'Таймер', href: '#timer' },
     { label: 'Локация', href: '#location' },
-    { label: 'Детали', href: '#details' },
+    
     { label: 'Дресс-код', href: '#dress-code' },
     { label: 'Ведущий', href: '#contacts' },
     { label: 'Присутствие', href: '#rsvp' },
@@ -131,4 +131,5 @@ export const Navigation: React.FC = () => {
     </>
   );
 };
+
 

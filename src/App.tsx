@@ -119,24 +119,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. DETAILS SECTION */}
-      <section id="details" className="section-wedding bg-wedding-secondary">
-        <div className="container-wedding text-center">
-          <div className="max-w-prose-wedding space-y-10">
-            <motion.h2 {...revealProps} className="text-3xl md:text-5xl font-serif mb-6">Детали</motion.h2>
-            <motion.div {...revealProps} className="space-y-8 text-wedding-muted leading-loose text-sm md:text-base">
-              <p>
-                Ваше присутствие на нашем празднике - самый главный подарок для нас.
-                Если вы планируете порадовать нас подарком, мы будем признательны за вклад в бюджет нашей будущей семьи.
-              </p>
-              <p>
-                Мы очень просим вас воздержаться от покупки цветов, так как сразу после торжества мы улетаем в свадебное путешествие и не успеем насладиться их красотой.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* 6. DRESS CODE SECTION */}
       <section id="dress-code" className="section-wedding bg-wedding-ivory">
         <div className="container-wedding text-center">
@@ -272,3 +254,4 @@ export default function App() {
     </div>
   );
 }
+
